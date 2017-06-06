@@ -1,0 +1,53 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sig.repository.mapper.HorasTrabajadorMapper">
+    
+
+    <select id="getAll" resultType="HorasTrabajador">
+        SELECT id
+        	,total_horas
+        	,horas_extra
+        	,descuento_canasta
+        	,retencion_judicial
+        	,adelanto
+        	,estado
+        	,fecha_registro
+        	,usuario
+        	,terminal
+         FROM "horas_trabajador" 
+         WHERE estado != 'E'
+    </select>
+    
+    <insert id="addHorasTrabajador" parameterType="HorasTrabajador">
+    INSERT INTO "horas_trabajador" (
+        	total_horas
+        	,horas_extra
+        	,descuento_canasta
+        	,retencion_judicial
+        	,adelanto
+        	,estado
+        	,fecha_registro
+        	,usuario
+        	,terminal
+    )
+    VALUES(
+    	#{total_horas}
+    	,#{horas_extra}
+    	,#{descuento_canasta}
+    	,#{retencion_judicial}
+    	,#{adelanto}
+    	,#{estado}
+    	,#{fecha_registro}
+    	,#{usuario}
+    	,#{terminal}
+    	)
+    </insert>
+    
+    <update id="updateHorasTrabajador" parameterType="HorasTrabajador">
+    	UPDATE "horas_trabajador" SET total_horas=#{total_horas}
+    	WHERE id=#{id}
+    </update>
+    
+     
+  
+    
+</mapper>
