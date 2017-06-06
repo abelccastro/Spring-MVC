@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.sig.domain.Person;
+import com.sig.domain.Persona;
 
 public interface PersonMapper {
-	 List<Person> getAllPeople();
-	 void addPerson(Person person);
-	 void updatePerson(Person person);
-	
+	 List<Persona> getAllPeople();
+	 void addPerson(Persona person);
+	 void updatePerson(Persona person);
+	 void deletePerson(Persona person);
 }

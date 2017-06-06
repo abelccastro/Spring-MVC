@@ -2,18 +2,59 @@
 <mapper namespace="com.sig.repository.mapper.PersonMapper">
     
 
-    <select id="getAllPeople" resultType="Person">
-        SELECT id, name FROM "Person"
+    <select id="getAllPeople" resultType="Persona">
+        SELECT id
+        	,codigo
+        	,dni
+        	,nombre
+        	,apellidos
+        	,direccion
+        	,fecha_nacimiento
+        	,estado
+        	,fecha_registro
+        	,usuario
+        	,terminal
+         FROM "persona" 
+         WHERE estado != 'E'
     </select>
     
-    <insert id="addPerson" parameterType="Person"
-     keyProperty="person.id" keyColumn="id">
-    INSERT INTO "Person" (id,name)
-    VALUES(#{id},#{name})
+    <insert id="addPerson" parameterType="Persona">
+    INSERT INTO "persona" (
+    	
+    	codigo
+    	,dni
+    	,nombre
+    	,apellidos
+    	,direccion
+    	,fecha_nacimiento
+    	,estado
+    	,fecha_registro
+    	,usuario
+    	,terminal
+    )
+    VALUES(
+    	
+    	#{codigo}
+    	,#{dni}
+    	,#{nombre}
+    	,#{apellidos}
+    	,#{direccion}
+    	,#{fecha_nacimiento}
+    	,#{estado}
+    	,#{fecha_registro}
+    	,#{usuario}
+    	,#{terminal}
+    	)
     </insert>
     
-    <update id="updatePerson" parameterType="Person">
-    	UPDATE "Person" SET name=#{name}
+    <update id="updatePerson" parameterType="Persona">
+    	UPDATE "persona" SET nombre=#{nombre}
     	WHERE id=#{id}
     </update>
+    
+     <update id="deletePerson" parameterType="Persona">
+    	UPDATE "persona" SET estado='E'
+    	WHERE id=#{id}
+    </update>
+    
 </mapper>

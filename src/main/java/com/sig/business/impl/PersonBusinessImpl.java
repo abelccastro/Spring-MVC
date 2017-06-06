@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.sig.business.PersonBusiness;
 import com.sig.common.dto.PersonDto;
-import com.sig.domain.Person;
+import com.sig.domain.Persona;
 import com.sig.repository.mapper.PersonMapper;
 
 @Service
@@ -20,9 +20,9 @@ public class PersonBusinessImpl implements PersonBusiness {
 	private PersonMapper personMapper;
 	
 	public List<PersonDto> getAllPeople() {
-		List<Person> entityPerson =personMapper.getAllPeople();
+		List<Persona> entityPerson =personMapper.getAllPeople();
 		List<PersonDto> object = new ArrayList<PersonDto>();
-		for(Person person : entityPerson){
+		for(Persona person : entityPerson){
 			PersonDto personDto = new PersonDto();
 			BeanUtils.copyProperties(person, personDto);
 			object.add(personDto);
@@ -32,14 +32,14 @@ public class PersonBusinessImpl implements PersonBusiness {
 	}
 
 	public void addPerson(PersonDto personDto) {
-		Person personBean = new Person();
+		Persona personBean = new Persona();
 		BeanUtils.copyProperties(personDto,personBean);
 		personMapper.addPerson(personBean);
 		
 	}
 
 	public PersonDto updatePerson(PersonDto personDto) {
-		Person personBean = new Person();
+		Persona personBean = new Persona();
 		BeanUtils.copyProperties(personDto,personBean);
 		personMapper.updatePerson(personBean);
 		return personDto;
