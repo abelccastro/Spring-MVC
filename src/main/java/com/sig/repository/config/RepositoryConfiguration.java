@@ -19,15 +19,16 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 @Configuration
+
+@MapperScan(basePackages="com.sig.repository.mapper",sqlSessionFactoryRef="sqlSessionFactory1")
 @PropertySource("classpath:persistence.properties")
-@MapperScan("com.sig.repository.mapper")
 public class RepositoryConfiguration {
 	
 	@Autowired
 	private Environment env;
 	
 	@Bean
-    public DataSource dataSource() {
+    public DataSource dataSource1() {
 		 DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("database.jdbc.driver"));
         dataSource.setUsername(env.getProperty("database.jdbc.user"));
@@ -38,22 +39,22 @@ public class RepositoryConfiguration {
 
     @Bean
     public DataSourceTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
+        return new DataSourceTransactionManager(dataSource1());
     }
     
-    @Bean
-    public SqlSessionFactoryBean sqlSessionFactory() throws Exception {
+    @Bean(name="sqlSessionFactory1")
+    public SqlSessionFactoryBean sqlSessionFactory1() throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
+        sessionFactory.setDataSource(dataSource1());
         sessionFactory.setTypeAliasesPackage("com.sig.domain");
-        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:com/sig/repository/mapper/*.xml"));
+        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:com/sig/repository/mapper/*.xml"));
         return sessionFactory;
     }
     
-    @Bean
-    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-        return new SqlSessionTemplate(sqlSessionFactory);
-    }
+//    @Bean
+//    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+//        return new SqlSessionTemplate(sqlSessionFactory);
+//    }
 
 }
 

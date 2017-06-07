@@ -1,0 +1,19 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sig.repository.mapper.PersonMapper">
+    
+
+    <select id="getAllPeople" resultType="Person">
+        SELECT id, name FROM "Person"
+    </select>
+    
+    <insert id="addPerson" parameterType="Person"
+     keyProperty="person.id" keyColumn="id">
+    INSERT INTO "Person" (id,name)
+    VALUES(#{id},#{name})
+    </insert>
+    
+    <update id="updatePerson" parameterType="Person">
+    	UPDATE "Person" SET name=#{name}
+    	WHERE id=#{id}
+    </update>
+</mapper>

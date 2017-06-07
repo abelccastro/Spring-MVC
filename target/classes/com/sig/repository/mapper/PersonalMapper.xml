@@ -1,0 +1,30 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sig.repository.mapper.PersonalMapper">
+    <select id="getPersonal" resultType="PersonaTrabajador">
+    
+         SELECT pp.id idPersona
+        	,pp.codigo
+        	,pp.dni
+        	,pp.nombre
+        	,pp.apellidos
+        	,pp.direccion
+        	,pp.fecha_nacimiento
+        	,pp.estado
+        	,tt.id idTrabajador
+        	,tt.cuspp
+        	,tt.tipo_pension
+        	,tt.carga_familiar
+        	,tt.cargo
+        	,tt.fecha_ingreso_planilla
+        	,tt.sueldo_bruto
+        	,tt.nro_cuenta_haberes
+        	,bb.id banco_id
+        	,bb.nombre  nombreBanco
+        	
+        		
+         FROM persona pp 
+         INNER JOIN trabajador tt on tt.persona_id=pp.id AND pp.estado != 'E'
+         INNER JOIN banco bb on tt.banco_id=bb.id AND bb.estado!= 'E'
+         
+    </select>
+</mapper>

@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sig.business.PersonBusiness;
 import com.sig.common.dto.PersonDto;
+import com.sig.common.dto.PersonaTrabajadorDto;
 import com.sig.rest.message.GetPersonRequest;
 import com.sig.rest.message.GetPersonResponse;
+import com.sig.rest.message.GetResponse;
 
 @RestController
 @RequestMapping("/person")
@@ -28,6 +30,15 @@ public class RegistroPersonController {
 		GetPersonResponse response = new GetPersonResponse();
 		List<PersonDto>  people = personBusiness.getAllPeople();	 
 		response.setPeople(people);
+		return response;
+	}
+	
+	@RequestMapping(value = "/getPersonal", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)		
+	public  @ResponseBody GetResponse<PersonaTrabajadorDto>  getPersonal(){
+		
+		GetResponse<PersonaTrabajadorDto> response = new GetResponse();
+		List<PersonaTrabajadorDto>  people = personBusiness.getAllPersonal();	 
+		response.setResponse(people);
 		return response;
 	}
 	

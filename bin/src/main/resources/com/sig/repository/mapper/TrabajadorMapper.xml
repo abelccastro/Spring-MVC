@@ -1,0 +1,67 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sig.repository.mapper.TrabajadorMapper">
+    
+
+    <select id="getAll" resultType="Trabajador">
+        SELECT id
+        	,cuspp
+        	,tipo_pension
+        	,carga_familiar
+        	,cargo
+        	,fecha_ingreso_planilla
+        	,sueldo_bruto
+        	,nro_cuenta_haberes
+        	,banco_id
+        	,persona_id
+        	,estado
+        	,fecha_registro
+        	,usuario
+        	,terminal
+         FROM "trabajador" 
+         WHERE estado != 'E'
+    </select>
+    
+    <insert id="addTrabajador" parameterType="Trabajador">
+    INSERT INTO "trabajador" (
+        	cuspp
+        	,tipo_pension
+        	,carga_familiar
+        	,cargo
+        	,fecha_ingreso_planilla
+        	,sueldo_bruto
+        	,nro_cuenta_haberes
+        	,banco_id
+        	,persona_id
+        	,estado
+        	,fecha_registro
+        	,usuario
+        	,terminal
+    )
+    VALUES(
+    	#{cuspp}
+    	,#{tipo_pension}
+    	,#{carga_familiar}
+    	,#{cargo}
+    	,#{fecha_ingreso_planilla}
+    	,#{sueldo_bruto}
+    	,#{nro_cuenta_haberes}
+    	,#{banco_id}
+    	,#{persona_id}
+    	,#{estado}
+    	,#{fecha_registro}
+    	,#{usuario}
+    	,#{terminal}
+    	)
+    </insert>
+    
+    <update id="updateTrabajador" parameterType="Trabajador">
+    	UPDATE "trabajador" SET sueldo_bruto=#{sueldo_bruto}
+    	WHERE id=#{id}
+    </update>
+    
+     <update id="deleteTrabajador" parameterType="Trabajador">
+    	UPDATE "trabajador" SET estado='E'
+    	WHERE id=#{id}
+    </update>
+    
+</mapper>

@@ -11,13 +11,18 @@ import org.springframework.stereotype.Service;
 
 import com.sig.business.PersonBusiness;
 import com.sig.common.dto.PersonDto;
+import com.sig.common.dto.PersonaTrabajadorDto;
 import com.sig.domain.Persona;
+import com.sig.domain.PersonaTrabajador;
 import com.sig.repository.mapper.PersonMapper;
+import com.sig.repository.mapper.PersonalMapper;
 
 @Service
 public class PersonBusinessImpl implements PersonBusiness {
 	@Autowired
 	private PersonMapper personMapper;
+	@Autowired
+	private PersonalMapper personalMapper;
 	
 	public List<PersonDto> getAllPeople() {
 		List<Persona> entityPerson =personMapper.getAllPeople();
@@ -43,5 +48,18 @@ public class PersonBusinessImpl implements PersonBusiness {
 		BeanUtils.copyProperties(personDto,personBean);
 		personMapper.updatePerson(personBean);
 		return personDto;
+	}
+
+	@Override
+	public List<PersonaTrabajadorDto> getAllPersonal() {
+		List<PersonaTrabajador> entityPerson =personalMapper.getPersonal();
+		List<PersonaTrabajadorDto> object = new ArrayList<PersonaTrabajadorDto>();
+		for(PersonaTrabajador person : entityPerson){
+			PersonaTrabajadorDto personDto = new PersonaTrabajadorDto();
+			BeanUtils.copyProperties(person, personDto);
+			object.add(personDto);
+		}
+		
+		return object;
 	}
 }
